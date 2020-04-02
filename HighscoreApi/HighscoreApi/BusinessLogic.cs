@@ -11,10 +11,15 @@ namespace HighscoreApi
     {
         public Player AddPlayerLogic(List<Player> highscore, Player player)
         {
+            if(player == null|| highscore == null)
+            {
+                return null;
+            }
+
 
             Player old;
             var count = highscore.Count;
-            if (count <= 10)
+            if (count < 5)
             {
                 //highscore.Add(player);
                 Player p = new Player();
@@ -26,7 +31,7 @@ namespace HighscoreApi
                 // Highscore Liste ist sortiert
                 if (highscore.Last().Score < player.Score)
                 {
-                    old = highscore.Last();
+                    return highscore.Last();
                     // Zack bumm brack
                 }
                 else
@@ -34,7 +39,6 @@ namespace HighscoreApi
                     return null;
                 }
             }
-            return old;
         }
     }
 }

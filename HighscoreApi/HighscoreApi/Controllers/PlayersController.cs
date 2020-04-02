@@ -25,7 +25,7 @@ namespace HighscoreApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Player>>> GetPlayers()
         {
-            return await _context.Players.OrderBy(p => p.Score).Take(5).ToListAsync();
+            return Ok(await _context.Players.OrderByDescending(p => p.Score).Take(5).ToListAsync());
         }
 
         // GET: api/Players/5
@@ -39,7 +39,7 @@ namespace HighscoreApi.Controllers
                 return NotFound();
             }
 
-            return player;
+            return Ok(player);
         }
 
         // PUT: api/Players/5
@@ -70,7 +70,6 @@ namespace HighscoreApi.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -78,7 +77,7 @@ namespace HighscoreApi.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Player>> PostPlayer(Player player)
+        public async Task<ActionResult<IEnumerable<Player>>> PostPlayer(Player player)
         {
             List<Player> highscore = await _context.Players.OrderByDescending(p => p.Score).ToListAsync();
             BusinessLogic logic = new BusinessLogic();
@@ -96,7 +95,7 @@ namespace HighscoreApi.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetPlayer", new { id = player.PlayerId }, player);
+            return Ok();
         }
 
         // DELETE: api/Players/5

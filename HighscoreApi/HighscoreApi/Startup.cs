@@ -16,6 +16,8 @@ namespace HighscoreApi
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,6 +28,16 @@ namespace HighscoreApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://example.com",
+                                        "http://www.contoso.com",
+                                        "http://localhost:8080/");
+                });
+            });
             services.AddControllers();
             services.AddDbContext<SpaceGameDataContext>();
         }
@@ -41,6 +53,8 @@ namespace HighscoreApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 

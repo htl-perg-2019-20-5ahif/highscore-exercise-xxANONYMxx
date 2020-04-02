@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HighscoreApi.Data
 {
-    public class SpaceGameDataContext : DbContext
+    public class SpaceGameDataContext : DbContext, IPlayerContext
     {
         public DbSet<Player> Players { get; set; }
 
@@ -20,9 +20,7 @@ namespace HighscoreApi.Data
                     new Player { PlayerId = 2, PName = "BRO", Score = 1738 },
                     new Player { PlayerId = 3, PName = "BRA", Score = 1783 },
                     new Player { PlayerId = 4, PName = "BRE", Score = 1383 },
-                    new Player { PlayerId = 5, PName = "BRI", Score = 383 },
-                    new Player { PlayerId = 6, PName = "COK", Score = 7383 });
-
+                    new Player { PlayerId = 5, PName = "BRI", Score = 383 });
             });
         }
 
@@ -30,6 +28,5 @@ namespace HighscoreApi.Data
         {
             optionsBuilder.UseSqlServer("Server = localhost; Database = Highscore; Trusted_Connection=True; ");
         }
-
     }
 }

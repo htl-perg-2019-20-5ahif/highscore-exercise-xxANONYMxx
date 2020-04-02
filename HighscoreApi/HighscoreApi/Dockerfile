@@ -7,9 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["HighscoreApi/HighscoreApi.csproj", "HighscoreApi/"]
+COPY ["/HighscoreApi.csproj", "HighscoreApi/"]
+COPY ["/HighscoreLogic.csproj", "HighscoreLogic/"]
 RUN dotnet restore "HighscoreApi/HighscoreApi.csproj"
-COPY . .
+COPY .. .
 WORKDIR "/src/HighscoreApi"
 RUN dotnet build "HighscoreApi.csproj" -c Release -o /app/build
 

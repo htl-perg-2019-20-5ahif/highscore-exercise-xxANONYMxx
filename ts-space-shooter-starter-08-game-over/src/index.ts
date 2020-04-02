@@ -147,13 +147,13 @@ class ShooterScene extends Scene {
                             }
                         },
                         response => {
-                            ShooterScene.getScores();
+                            ShooterScene.getScores(); 
                         }
                     );
 
                     req.write(JSON.stringify({
-                        name: document.querySelector('input').value,
-                        points: ShooterScene.counter
+                        PName: document.querySelector('input').value,
+                        Score: ShooterScene.counter
                     }));
 
                     req.end();
@@ -215,12 +215,12 @@ class ShooterScene extends Scene {
             row.appendChild(cell3);
 
             const cell = document.createElement("td");
-            cellText = document.createTextNode(player.PName.value());
+            cellText = document.createTextNode(player.pName);
             cell.appendChild(cellText);
             row.appendChild(cell);
 
             const cell2 = document.createElement("td");
-            cellText = document.createTextNode(player.Score.value());
+            cellText = document.createTextNode(player.score);
             cell2.appendChild(cellText);
             row.appendChild(cell2);
 
